@@ -11,6 +11,11 @@ RUN apt-get update && apt-get -y upgrade && \
 	ssh systemd systemd-sysv tasksel tasksel-data udev vim wget whiptail \
 	xxd iptables isc-dhcp-client isc-dhcp-common kmod less netcat-openbsd
 
+# Morgen.so installation
+RUN wget -q -O /tmp/morgen-2.7.5.deb https://cdn.uploadjoy.com/public/webvm/morgen-2.7.5.deb \
+  && dpkg -i /tmp/morgen-2.7.5.deb \
+  && rm /tmp/morgen-2.7.5.deb
+
 # Make a user, then copy over the /example directory
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./examples /home/user/examples
